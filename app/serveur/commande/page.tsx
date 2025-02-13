@@ -20,7 +20,7 @@ const CommandesPage = () => {
 
       <OrderInput onConfirm={setSelectedOrder} />
 
-      {selectedOrder !== null && <OrderForm orderNumber={selectedOrder} />}
+      {selectedOrder !== null && <OrderForm orderNumber={selectedOrder} serveurName="Serveur" />}
     </div>
   );
 };
