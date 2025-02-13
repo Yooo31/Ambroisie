@@ -1,16 +1,22 @@
 interface MenuItemProps {
   title: string;
-  quantity: number;
+  status: string;
+  onClick: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ title, quantity }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ title, status, onClick }) => {
   return (
     <div className="flex justify-between items-center p-2 border rounded">
       <span>{title}</span>
-      {quantity === 0 ? (
-        <button className="bg-blue-500 text-white px-3 py-1 rounded">Commander</button>
+      {status === 'attente' ? (
+        <button
+          className="bg-blue-500 text-white px-3 py-1 rounded"
+          onClick={onClick}
+        >
+          Commander
+        </button>
       ) : (
-        <span className="bg-green-500 text-white px-3 py-1 rounded">Reçu</span>
+        <span className="bg-green-500 text-white px-3 py-1 rounded">{status}</span>
       )}
     </div>
   );

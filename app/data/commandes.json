@@ -1,54 +1,36 @@
 [
   {
+    "serveurName": "Serveur",
     "numeroTable": 1,
-    "status": "Prête"
-  },
-  {
-    "serveurName": "Serveur",
-    "numeroTable": 2,
-    "status": "En cours",
-    "content": {
-      "adulte": {
-        "entree": 0,
-        "plat": 0,
-        "dessert": 0
+    "content": [
+      {
+        "type": "adulte",
+        "entree": "commandé",
+        "plat": "attente",
+        "dessert": "attente"
       },
-      "enfant": {
-        "plat": 0,
-        "dessert": 0
-      }
-    }
-  },
-  {
-    "serveurName": "Serveur",
-    "numeroTable": 3,
-    "status": "En cours",
-    "content": {
-      "adulte": {
-        "entree": 0,
-        "plat": 0,
-        "dessert": 0
+      {
+        "type": "adulte",
+        "entree": "commandé",
+        "plat": "attente",
+        "dessert": "attente"
       },
-      "enfant": {
-        "plat": 0,
-        "dessert": 0
-      }
-    }
-  },
-  {
-    "serveurName": "Serveur",
-    "numeroTable": 4,
-    "status": "En cours",
-    "content": {
-      "adulte": {
-        "entree": 0,
-        "plat": 0,
-        "dessert": 0
+      {
+        "type": "adulte",
+        "entree": "attente",
+        "plat": "attente",
+        "dessert": "attente"
       },
-      "enfant": {
-        "plat": 0,
-        "dessert": 0
+      {
+        "type": "enfant",
+        "plat": "attente",
+        "dessert": "attente"
+      },
+      {
+        "type": "enfant",
+        "plat": "attente",
+        "dessert": "attente"
       }
-    }
+    ]
   }
 ]
