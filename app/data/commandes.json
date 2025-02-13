@@ -1,18 +1,7 @@
 [
   {
     "numeroTable": 1,
-    "status": "En cours",
-    "content": {
-      "adulte": {
-        "entree": 0,
-        "plat": 0,
-        "dessert": 0
-      },
-      "enfant": {
-        "plat": 0,
-        "dessert": 0
-      }
-    }
+    "status": "Prête"
   },
   {
     "serveurName": "Serveur",
@@ -33,6 +22,22 @@
   {
     "serveurName": "Serveur",
     "numeroTable": 3,
+    "status": "En cours",
+    "content": {
+      "adulte": {
+        "entree": 0,
+        "plat": 0,
+        "dessert": 0
+      },
+      "enfant": {
+        "plat": 0,
+        "dessert": 0
+      }
+    }
+  },
+  {
+    "serveurName": "Serveur",
+    "numeroTable": 4,
     "status": "En cours",
     "content": {
       "adulte": {
