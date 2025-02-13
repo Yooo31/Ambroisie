@@ -1,0 +1,17 @@
+[
+  {
+    "numeroTable": 1,
+    "status": "En cours",
+    "content": {
+      "adulte": {
+        "entree": 0,
+        "plat": 0,
+        "dessert": 0
+      },
+      "enfant": {
+        "plat": 0,
+        "dessert": 0
+      }
+    }
+  }
+]

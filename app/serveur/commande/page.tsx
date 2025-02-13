@@ -12,7 +12,7 @@ const CommandesPage = () => {
   return (
     <div className="p-4 max-w-md mx-auto">
       <div className="flex items-center gap-2 mb-4">
-        <Link href="/serveurs" className="text-gray-700 hover:text-black">
+        <Link href="/serveur" className="text-gray-700 hover:text-black">
           <ArrowLeft className="w-6 h-6" />
         </Link>
         <h1 className="text-2xl font-bold">Gestion Commandes</h1>
