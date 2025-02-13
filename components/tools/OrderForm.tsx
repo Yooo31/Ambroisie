@@ -1,17 +1,19 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { MenuCard } from '@/components/tools/MenuCard';
 import { MenuSelector } from '@/components/tools/MenuSelector';
+
+interface Menu {
+  type: 'adulte' | 'enfant';
+  entree?: string;
+  plat: string;
+  dessert: string;
+}
 
 interface Order {
   serveurName: string;
   numeroTable: number;
   status: string;
-  content: {
-    adulte: { entree: number; plat: number; dessert: number };
-    enfant: { plat: number; dessert: number };
-  };
+  content: Menu[];
 }
 
 interface OrderFormProps {
@@ -25,14 +27,12 @@ export const OrderForm: React.FC<OrderFormProps> = ({ orderNumber, serveurName }
   const [menuAdulteCount, setMenuAdulteCount] = useState(0);
   const [menuEnfantCount, setMenuEnfantCount] = useState(0);
 
-  // 🔍 Vérifier si une commande existe déjà
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const res = await fetch('/api/commandes');
         const commandes: Order[] = await res.json();
-
-        const existingOrder = commandes.find((cmd) => cmd.numeroTable === orderNumber);
+        const existingOrder = commandes.find((cmd: Order) => cmd.numeroTable === orderNumber);
         if (existingOrder) {
           setOrder(existingOrder);
         }
@@ -42,36 +42,43 @@ export const OrderForm: React.FC<OrderFormProps> = ({ orderNumber, serveurName }
         setLoading(false);
       }
     };
-
     fetchOrder();
   }, [orderNumber]);
 
-  // ✅ Sauvegarder une nouvelle commande
   const saveOrder = async () => {
-    const newOrder: Order = {
-      serveurName,
-      numeroTable: orderNumber,
-      status: 'En cours',
-      content: {
-        adulte: { entree: 0, plat: 0, dessert: 0 },
-        enfant: { plat: 0, dessert: 0 },
-      },
-    };
+    const res = await fetch('/api/commandes');
+    const commandes = await res.json();
 
-    try {
-      const res = await fetch('/api/commandes', {
+    const existingOrder = commandes.find((cmd: Order) => cmd.numeroTable === orderNumber);
+
+    const newMenus = [
+      ...Array(menuAdulteCount).fill({
+        type: 'adulte',
+        entree: 'attente',
+        plat: 'attente',
+        dessert: 'attente',
+      }),
+      ...Array(menuEnfantCount).fill({ type: 'enfant', plat: 'attente', dessert: 'attente' }),
+    ];
+
+    if (existingOrder) {
+      existingOrder.content.push(...newMenus);
+      await fetch('/api/commandes', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(existingOrder),
+      });
+    } else {
+      await fetch('/api/commandes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newOrder),
+        body: JSON.stringify({
+          serveurName,
+          numeroTable: orderNumber,
+          menuAdulteCount,
+          menuEnfantCount,
+        }),
       });
-
-      if (res.ok) {
-        setOrder(newOrder);
-      } else {
-        console.error('Erreur lors de l’enregistrement de la commande');
-      }
-    } catch (error) {
-      console.error('Erreur:', error);
     }
   };
 
