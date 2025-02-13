@@ -1,26 +1,30 @@
 import { useEffect, useState } from 'react';
 
-interface Order {
+interface MenuItem {
+  type: 'adulte' | 'enfant';
+  entree?: string;
+  plat: string;
+  dessert: string;
+}
+
+interface Commande {
   serveurName: string;
   numeroTable: number;
   status: string;
-  content: {
-    adulte: { entree: number; plat: number; dessert: number };
-    enfant: { plat: number; dessert: number };
-  };
+  content: MenuItem[];
 }
 
 export const useCommandes = () => {
-  const [commandes, setCommandes] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [commandes, setCommandes] = useState<Commande[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchCommandes = async () => {
     try {
-      const res = await fetch('/api/commandes');
-      const data = await res.json();
+      const response = await fetch('/api/commandes');
+      const data: Commande[] = await response.json();
       setCommandes(data);
     } catch (error) {
-      console.error('Erreur lors de la récupération des commandes', error);
+      console.error("Erreur lors de la récupération des commandes", error);
     } finally {
       setLoading(false);
     }
@@ -28,8 +32,6 @@ export const useCommandes = () => {
 
   useEffect(() => {
     fetchCommandes();
-    const interval = setInterval(fetchCommandes, 5000);
-    return () => clearInterval(interval);
   }, []);
 
   return { commandes, loading, fetchCommandes };
