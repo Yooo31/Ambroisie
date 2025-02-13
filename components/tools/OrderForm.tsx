@@ -25,6 +25,7 @@ interface OrderFormProps {
 export const OrderForm: React.FC<OrderFormProps> = ({ orderNumber, serveurName }) => {
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
+  console.log(serveurName);
 
   useEffect(() => {
     const fetchOrder = async () => {
